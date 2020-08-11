@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Appointment</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: gray;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>Rendez-vous sur la clinique Elchifa</p>
+            </div>
+        <div>
+        <hr class='hrItem' />
+        <div class='details'>
+            <h4>Patient info:</h4>
+            Nom d'utilisateur: {{ user.username }} <br/>
+            Nom complet: {{ appointment.first_name}} {{appointment.last_name}}<br/>
+            Téléphone: +213{{ user.profile.phone }}<br/>
+            Email: {{ user.email }}
+            <hr class='hrItem' />
+        </div>
+        <div class='details'>
+            <h4>Rendez-vous:</h4>
+            Date: {{ date }} <br/>
+            Temps: {{ appointment.time }} <br/>
+            Service: {{ service }} <br/>
+            <hr class='hrItem' />
+        </div>
+        <div class='details'>
+            <h4>Code:</h4>
+            <h2>{{timecode}}</2>
+            <br/>
+            <hr class='hrItem' /><br>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

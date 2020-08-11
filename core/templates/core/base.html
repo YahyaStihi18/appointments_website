@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+     <title>Health - Medical Website</title>
+<!--
+
+Template 2098 Health-->
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="Tooplate">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+     <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css'%}">
+     <link rel="stylesheet" href="{% static 'core/css/animate.css'%}">
+     <link rel="stylesheet" href="{% static 'core/css/owl.carousel.css'%}">
+     <link rel="stylesheet" href="{% static 'core/css/owl.theme.default.min.css'%}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'core/css/tooplate-style.css'%}">
+
+</head>
+     <header>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-5">
+                         <p>Welcome to a Professional Health Care</p>
+                    </div>
+                         
+                    <div class="col-md-8 col-sm-7 text-align-right">
+                         <span class="phone-icon"><i class="fa fa-phone"></i> 010-060-0160</span>
+                         <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
+                         <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
+                    </div>
+
+               </div>
+          </div>
+          
+     </header>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" dir="ltr">
+  <a class="navbar-brand" href="#">LOGO</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown" dir="rtl">
+          <a class="nav-link dropdown-toggle" href="{% url 'profile' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            حسابي
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="text-align: right;">
+            {% if user.is_authenticated%}
+            <a class="dropdown-item" href="{%url 'profile'%}"> حسابي</a>
+            <a class="dropdown-item" href="{%url 'logout'%}"> تسجيل الخروج </a>
+
+            {% else %}
+            <a class="dropdown-item" href="{%url 'login'%}"> تسجيل الدخول </a>
+            <a class="dropdown-item" href="{%url 'register'%}"> تسجيل حساب</a>
+            {% endif %}
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index'%}">الرئيسية<span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+<a href="{% url 'appointment'%}" class="btn btn-outline-success" role="button" aria-pressed="true" style="font-weight: 900;">حجز موعد</a>
+  </div>
+</nav>
+
+{% block content %} 
+
+
+{% endblock content %}  
+<div>
+    <!-- FOOTER -->
+     <footer data-stellar-background-ratio="5">
+          <div class="container"  style="text-align: right;">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-4">
+                         <div class="footer-thumb"> 
+                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">معلومات الاتصال</h4>
+                              <p>مقر العيادة يرحب بكم للاية استفسارات</p>
+
+                              <div class="contact-info">
+                                   <p><i class="fa fa-phone"></i> 0659176510</p>
+                                   <p><i class="fa fa-envelope-o"></i> <a href="#">stihiyahya2016@gmail.com</a></p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4"> 
+                         <div class="footer-thumb"> 
+                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">اخر الاخبار</h4>
+                              <div class="latest-stories">
+                                   <div class="stories-image">
+                                        <a href="#"><img src="{% static 'core/images/news-image.jpg'%}" class="img-responsive" alt=""></a>
+                                   </div>
+                                   <div class="stories-info">
+                                        <a href="#"><h5>حملة التبرع بالدم</h5></a>
+                                        <span>March 08, 2020</span>
+                                   </div>
+                              </div>
+
+                              <div class="latest-stories">
+                                   <div class="stories-image">
+                                        <a href="#"><img src="{% static 'core/images/news-image.jpg'%}" class="img-responsive" alt=""></a>
+                                   </div>
+                                   <div class="stories-info">
+                                        <a href="#"><h5>خدمة جديدة </h5></a>
+                                        <span>February 20, 2020</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-4"> 
+                         <div class="footer-thumb">
+                              <div class="opening-hours">
+                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">ساعات العمل</h4>
+                                   <p> من السبت الى الاربعاء <span> 08:00-17:00</span></p>
+                                   <p> يوم الخميس <span>08:00-13:00</span></p>
+                                   <p>يوم الجمعة <span> مغلق </span></p>
+                              </div> 
+
+                              <ul class="social-icon">
+                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                   <li><a href="#" class="fa fa-twitter"></a></li>
+                                   <li><a href="#" class="fa fa-instagram"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 border-top">
+                         <div class="col-md-4 col-sm-6">
+                              <div class="copyright-text"> 
+                                   <p>Copyright &copy; 2020 Yahya Stihi 
+                                   
+                                   | Design: Tooplate</p>
+                              </div>
+                         </div>
+ 
+                    </div>
+                    
+               </div>
+          </div>
+     </footer>
+</div>
+
+     
+     
+     
+     <!-- SCRIPTS -->
+     <script src="{% static 'core/js/jquery.js"></script>
+     <script src="{% static 'core/js/bootstrap.min.js'%}"></script>
+     <script src="{% static 'core/js/jquery.sticky.js'%}"></script>
+     <script src="{% static 'core/js/jquery.stellar.min.js'%}"></script>
+     <script src="{% static 'core/js/wow.min.js"></script>
+     <script src="{% static 'core/js/owl.carousel.min.js'%}"></script>
+     <script src="{% static 'core/js/custom.js'%}"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

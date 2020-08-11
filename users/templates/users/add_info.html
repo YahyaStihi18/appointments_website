@@ -1,0 +1,24 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<br>
+<div style="max-width: 30rem; margin: auto; background-color: white; padding: 10px;text-align: right;">
+    <form method="POST">
+
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">تحديث معلومات الحساب</legend>
+        </fieldset>
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-outline-primary" style="width: 100%;">تحديث المعلومات</button>
+    </form>
+    <div class="border_top pt-3">
+
+    </div>
+</div>
+{% endblock content %}
