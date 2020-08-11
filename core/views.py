@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse
+from django.core.exceptions import PermissionDenied
+
 from .forms import AppointmentForm
 from .models import Appointment
 from django.contrib import messages
@@ -7,10 +9,68 @@ from django.contrib.auth.decorators import login_required
 import string
 
 
-
-
 def index(request):
     return render(request,'core/index.html')
+
+@login_required()
+def staff(request):
+    user = request.user
+    if user.is_staff :
+        today = datetime.date.today()
+        appointments = Appointment.objects.filter(date=today)
+        day1 = datetime.date.today()
+        opp1 = Appointment.objects.filter(date=day1)
+
+        day2 = datetime.date.today()+datetime.timedelta(1)
+        opp2 = Appointment.objects.filter(date=day2)
+
+        day3 = datetime.date.today()+datetime.timedelta(2)
+        opp3 = Appointment.objects.filter(date=day3)
+
+        day4 = datetime.date.today()+datetime.timedelta(3)
+        opp4 = Appointment.objects.filter(date=day4)
+
+        day5 = datetime.date.today()+datetime.timedelta(4)
+        opp5 = Appointment.objects.filter(date=day5)
+
+        day6 = datetime.date.today()+datetime.timedelta(5)
+        opp6 = Appointment.objects.filter(date=day6)
+
+        day7 = datetime.date.today()+datetime.timedelta(6)
+        opp7 = Appointment.objects.filter(date=day7)
+
+
+        timelist = [
+        '09:00-10:00',
+        '10:00-11:00',
+        '11:00-12:00',
+        '14:00-15:00',
+        '15:00-16:00',
+        '16:00-17:00',
+        ]
+        context = {
+        'appointments':appointments, 
+        'timelist':timelist,
+
+        'day1':day1,
+        'opp1':opp1,
+        'day2':day2,
+        'opp2':opp2,
+        'day3':day3,
+        'opp3':opp3,
+        'day4':day4,
+        'opp4':opp4,
+        'day5':day5,
+        'opp5':opp5,
+        'day6':day6,
+        'opp6':opp6,
+        'day7':day7,
+        'opp7':opp7,
+        }
+        return render(request,'core/staff.html',context)
+    else:
+        raise PermissionDenied
+
 
 
 @login_required()

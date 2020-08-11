@@ -18,7 +18,10 @@ def profile(request):
     context = {
         'appointments':appointments,
     }
-    return render(request,'users/profile.html',context)
+    if user.is_staff:
+        return redirect('staff')
+    else:
+        return render(request,'users/profile.html',context)
 
 @login_required
 def delete_appointment(request,id):
