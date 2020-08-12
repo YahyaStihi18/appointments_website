@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 
 from .forms import AppointmentForm
@@ -11,6 +11,47 @@ import string
 
 def index(request):
     return render(request,'core/index.html')
+
+@login_required()
+def check_appointment(request,id):
+    user= request.user
+    if user.is_staff:
+        appointment = Appointment.objects.get(id=id)
+ 
+        on_date= appointment.on_date.strftime("%Y-%m-%d %H:%M:%S")
+        date = appointment.date.strftime("%Y-%m-%d")
+        timecode = appointment.on_date.strftime("%y%H%M%m%d%S")
+        service = 'Obtention de documents médicaux'
+        if appointment.service == 'فحص طبي' :
+            service = 'Examen médical'
+        elif appointment.service == 'تصوير بالاشعة':
+            service = 'Radiographie médicale'
+        elif appointment.service == 'اكمال علاج سابق':
+            service = 'Poursuite du traitement précédent'
+        context = {
+            'appointment':appointment,
+            'on_date':on_date,
+            'date':date,
+            'timecode':timecode,
+            'service':service,
+        }
+        return render(request, 'core/check_appointment.html', context)
+    else:
+        raise PermissionDenied
+
+
+@login_required
+def change_status(request,id):
+    user = request.user
+    if user.is_staff:
+        appointment=Appointment.objects.get(id=id)
+        appointment.status = True
+        appointment.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        raise PermissionDenied
+
+
 
 @login_required()
 def staff(request):
@@ -70,6 +111,8 @@ def staff(request):
         return render(request,'core/staff.html',context)
     else:
         raise PermissionDenied
+
+
 
 
 

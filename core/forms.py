@@ -19,3 +19,6 @@ class AppointmentForm(forms.ModelForm):
         self.fields['date'].widget.attrs['class'] = 'form-control'
         self.fields['time'].widget.attrs['class'] = 'form-control'
         self.fields['service'].widget.attrs['class'] = 'form-control'
+
+
+

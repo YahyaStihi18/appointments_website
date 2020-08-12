@@ -14,6 +14,14 @@ from .utils import render_to_pdf
 @login_required
 def profile(request):
     user=request.user
+    try:
+        user.profile
+    except:
+        if user.is_staff:
+            pass
+        else:
+            messages.warning(request, "لم تقم بملا معلوماتك الشخصية بعد, الرجاء التوجه الى خانة 'معلوماتي' لتحديث معلوماتك الشخصية.")
+
     appointments = Appointment.objects.filter(user=user)
     context = {
         'appointments':appointments,
@@ -40,7 +48,7 @@ def view_appointment(request,id):
     appointment = Appointment.objects.get(id=id)
     if appointment.user == user:  # you check if the user is the owner of the order
         date = appointment.date.strftime("%Y-%m-%d")
-        timecode = appointment.on_date.strftime("%y%H%M%m%d")
+        timecode = appointment.on_date.strftime("%y%H%M%m%d%S")
         service = 'Obtention de documents médicaux'
         if appointment.service == 'فحص طبي' :
             service = 'Examen médical'
@@ -73,7 +81,6 @@ def add_info(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.notes = 'لاشيئ'
             instance.save()
             messages.success(request, 'تم تحديث المعلومات بنجاح')
             return redirect('profile')

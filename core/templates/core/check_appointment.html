@@ -1,0 +1,87 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <title>chack appointment</title>
+</head>
+<body>
+
+<hr>
+<div class="container target">
+    <div class="row">
+        <div class="col-sm-10">
+            <a href="{% url 'staff' %}" type="button" class="btn btn-success">Retour</a>
+            <hr>
+             <h1 class="">{{ appointment.user }}</h1>
+         
+          
+<br>
+        </div>
+      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="{% static 'core/images/profile.png'%}"></a>
+
+        </div>
+    </div>
+  <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Patient info</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Nom complet:</strong></span>{{ appointment.first_name}} {{appointment.last_name}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Téléphone:</strong></span> +213{{ user.profile.phone }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email:</strong></span> {{ user.email }}</li>
+
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Status:</div>
+                <div class="panel-body" style="font-weight: 700;">
+                    {% if appointment.status == False %}
+                    <h3>réservée</h3>
+                    <br>
+                        <div style="text-align: right;">
+                            <a href="{% url 'change_status' appointment.id %}" type="button" class="btn btn-danger">terminé</a>
+                        </div>
+                    {% else %}
+                    <img src="{% static 'core/images/terminé.png'%}" style="max-width: 23rem;">
+                    <br>
+                    {% endif %}
+                    </form>
+                    
+
+                </div>
+            </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9" style="" contenteditable="false">
+            <div class="panel panel-default">
+                <div class="panel-heading">Rendez-vous:</div>
+                <div class="panel-body" style="font-weight: 700;">
+                    Date: {{ date }} <br/>
+                    Temps: {{ appointment.time }} <br/>
+                </div>
+            </div>
+            <div class="panel panel-default target">
+                <div class="panel-heading" contenteditable="false">Service:</div>
+                <div class="panel-body" style="font-weight: 900;">
+                    <h3>{{service}}</h3>
+                </div>
+            </div>
+           <div class="panel panel-default">
+                <div class="panel-heading">Le Code Généré:</div>
+                <div class="panel-body" style="font-weight: 900;">
+                    <h3>{{timecode}}</h3>
+                </div>
+</div></div>
+ 
+	
+</div>
+
+
+
+
+</body>
+</html>

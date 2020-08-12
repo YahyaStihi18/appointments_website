@@ -7,11 +7,10 @@
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
         {{ message}}
-
-        {% endfor %}
-        {% endif %}
-
     </div>
+    {% endfor %}
+    {% endif %}
+
 </div>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -68,6 +67,7 @@
                                         <th scope="col">اسم المريض</th>
                                         <th scope="col">تاريخ الموعد</th>
                                         <th scope="col">الخدمة</th>
+                                        <th scope="col">الحالة</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -77,6 +77,10 @@
                                         <td>{{appointment.first_name}} {{appointment.last_name}}</td>
                                         <td>{{ appointment.date }} ({{appointment.time}})</td>
                                         <td>{{ appointment.service }}</td>
+                                        <td>{% if appointment.status == False %}محتجزة
+                                            {% else %}مكتملة 
+                                            {% endif %}
+                                        </td>
                                         <td>
                                             <div style="text-align: left;">
                                             <a href="{% url 'view_appointment' appointment.id %}" class="btn btn-outline-success " role="button"
@@ -115,7 +119,7 @@
                                     <label>الهاتف</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>+213{{user.profile.phone}}</p>
+                                    <p>0{{user.profile.phone}}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -136,10 +140,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>ملاحظة</label>
+                                    <label>تاريخ الميلاد</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{user.profile.notes}}</p>
+                                    <p>{{user.profile.date_of_birth}}</p>
                                 </div>
                             </div>
                             {% else %}

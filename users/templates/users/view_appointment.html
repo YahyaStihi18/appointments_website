@@ -56,6 +56,11 @@
             Date: {{ date }} <br/>
             Temps: {{ appointment.time }} <br/>
             Service: {{ service }} <br/>
+            {% if appointment.status == False %}
+                status: réservée <br/>
+            {% else %}
+                status: terminé <br/>
+            {% endif%}
             <hr class='hrItem' />
         </div>
         <div class='details'>

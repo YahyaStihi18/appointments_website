@@ -16,7 +16,6 @@ class Profile(models.Model):
     address = models.CharField('العنوان',max_length=200,null=True,blank=False)
     date_of_birth = models.DateField('تاريخ الميلاذ')
     sex = models.CharField('الجنس',choices=sex_choice,max_length=200)
-    notes = models.TextField()
 
     def __str__(self):
         return self.user.username

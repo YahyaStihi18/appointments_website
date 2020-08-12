@@ -11,7 +11,7 @@ urlpatterns = [
     path('profile/delete_appointment/<int:id>/', views.delete_appointment, name='delete_appointment'),
     path('profile/view_appointment/<int:id>/',views.view_appointment,name='view_appointment'),
     path('add_info/',views.add_info,name='add_info'),
-    path('staf/',cv.staff,name='staff'),
+    path('staff/',cv.staff,name='staff'),
 
     path('register/', views.register,name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),

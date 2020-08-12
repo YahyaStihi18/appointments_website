@@ -21,6 +21,7 @@ class Appointment(models.Model):
 
         ]
 
+
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -28,7 +29,10 @@ class Appointment(models.Model):
     time = models.CharField(max_length=200,choices=time_choice)
     service = models.CharField(max_length=200,choices=service_choice)
     on_date = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False)
     def __str__(self):
         return self.first_name+' '+self.last_name
+
+
 
 

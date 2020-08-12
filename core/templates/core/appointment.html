@@ -122,6 +122,7 @@
             <div class="card-body">
                 <h2>:احجز موعدك هنا</h2>
                 <form method="POST">
+                    <p class="text-muted">(ادخل المعلومات الخاصة بالمريض او المستفيد فقط)</p>
                     {% csrf_token %}
                     <!-- Form start -->
                     <div class="row">
@@ -158,6 +159,7 @@
                                 <label class="control-label" for="appointmentfor">نوع الخدمة</label>
                                 
                                   {{ form.service }}
+
 
                                 </select>
                             </div>

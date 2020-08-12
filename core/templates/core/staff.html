@@ -66,6 +66,7 @@
                                     <th scope="col">اسم المريض</th>
                                     <th scope="col">التوقيت</th>
                                     <th scope="col">الخدمة</th>
+                                    <th scope="col">الحالة</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -75,12 +76,15 @@
                                     <td>{{appointment.first_name}} {{appointment.last_name}}</td>
                                     <td>({{appointment.time}})</td>
                                     <td>{{ appointment.service }}</td>
+                                    <td>{% if appointment.status == False %}محتجزة
+                                    {% else %}مكتملة 
+                                    {% endif %}
+                                    </td>
                                     <td>
                                         <div style="text-align: left;">
-                                            <a href="#" class="btn btn-outline-success " role="button"
+                                            <a href="{% url 'check_appointment' appointment.id %}" class="btn btn-outline-success " role="button"
                                                 aria-pressed="true">فحص</a>
-                                            <a href="#" class="btn btn-outline-danger " role="button"
-                                                aria-pressed="true">حذف</a>
+
 
                                             <div>
                                     </td>
