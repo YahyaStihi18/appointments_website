@@ -31,8 +31,8 @@
             <ul class="list-group">
                 <li class="list-group-item text-muted" contenteditable="false">Patient info:</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Nom complet:</strong></span>{{ appointment.first_name}} {{appointment.last_name}}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Téléphone:</strong></span> +213{{ user.profile.phone }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email:</strong></span> {{ user.email }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Téléphone:</strong></span> +213 {{ appointment.user.profile.phone}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email:</strong></span> {{ appointment.user.email }}</li>
 
             </ul>
 
