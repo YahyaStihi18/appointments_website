@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.views.generic import View
 from .utils import render_to_pdf
-
+import string
 
 
 @login_required
@@ -100,9 +100,15 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterFrom(request.POST)
         if form.is_valid():
+            username=form.cleaned_data['username']
+            for i in username:
+                x = string.ascii_lowercase+string.ascii_uppercase
+                if i not in x:
+                    messages.warning(request, 'اسم المستخدم يجب ان يكون بالحروف الاتينية فقط ')
+                    return redirect('register')
             user = form.save()
             user.save()
-            messages.success(request,'تم نسجيلك بنجاح سجل دخولك الان')
+            messages.success(request,'تم تسجيلك بنجاح, سجل دخولك الان')
             return redirect ('login')
     else:
         form = UserRegisterFrom()

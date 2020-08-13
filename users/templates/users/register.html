@@ -6,30 +6,47 @@
 
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
+        <div class="alert alert-{{ message.tags }}" style="text-align: right;">
             {{ message}}
-
+        </div>
             {% endfor %}
             {% endif %}
 
-        </div>
-        <br>
-        <div style="max-width: 70%; margin: auto; background-color: white; padding: 10px;text-align: right;">
-            <form method="POST">
-
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">تسجيل حساب جديد</legend>
-                </fieldset>
-                {{ form|crispy }}
-
-                <button type="submit" class="btn btn-outline-primary" style="width: 100%;">سجل الحساب</button>
-            </form>
-            <div class="border_top pt-3">
-                <small class="text-muted">
-                    لديك حساب ؟ <a href="{% url 'login'%}">سجل الدخول</a>
-                </small>
-            </div>
-        </div>
+            <div class="limiter" style="text-align: right;">
+                <div class="container-login100">
+                    <div class="wrap-login100">
+                        <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST">
+                            <span class="login100-form-title">
+                                فتح حساب جديد
+                            </span>
+        
+                                {{ form|crispy }}
+                                {% csrf_token %}
+        
+                            <div class="text-right p-t-13 p-b-23">
+                                
+                            </div>
+        
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn"  type="submit">
+                                    فتح الحساب
+                                </button>
+                            </div>
+        
+                            <div style="text-align: center; padding-top: 45px;">
+                                <span class="txt1 p-b-9">
+                                      لديك حساب؟
+                                </span>
+        
+                                <a href="{% url 'login' %}" class="txt3">
+                                    سجل الدخول
+                                </a>
+                                
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>   
     </main>
 {% endblock content%}

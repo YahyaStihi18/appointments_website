@@ -16,6 +16,10 @@ Template 2098 Health-->
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
+     <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/login/css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'core/login/css/main.css'%}">
+     <!--===============================================================================================-->
 
      <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css'%}">
      <link rel="stylesheet" href="{% static 'core/css/animate.css'%}">
@@ -44,7 +48,7 @@ Template 2098 Health-->
           </div>
           
      </header>
-<body>
+<body style="font-weight: 500;">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" dir="ltr">
   <a class="navbar-brand" href="#">LOGO</a>
@@ -65,7 +69,7 @@ Template 2098 Health-->
 
             {% else %}
             <a class="dropdown-item" href="{%url 'login'%}"> تسجيل الدخول </a>
-            <a class="dropdown-item" href="{%url 'register'%}"> تسجيل حساب</a>
+            <a class="dropdown-item" href="{%url 'register'%}">فتح حساب</a>
             {% endif %}
           </div>
         </li>
@@ -85,6 +89,8 @@ Template 2098 Health-->
 
 
 {% endblock content %}  
+<br>
+<hr>
 <div>
     <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
