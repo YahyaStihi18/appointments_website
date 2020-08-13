@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Create your models here.
 sex_choice = [
-        ('دكر','دكر'),
+        ('ذكر','ذكر'),
         ('انثى','انثى'),
         ]
 class Profile(models.Model):
