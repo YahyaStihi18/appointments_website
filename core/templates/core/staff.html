@@ -1,186 +1,153 @@
 {% extends 'core/base.html'%}
 {% load static %}
 {% block content %}
-<br>
+
+<div class="border_top pt-3" style="padding: 20px;text-align: right;">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message}}</div>
+    {% endfor %} {% endif %}
+</div>
+
+
 <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-
-                    <div class="card-body">
-                        <div class="card-title mb-0" dir="ltr">
-                            <div class="d-flex justify-content-start">
-                                <div class="image-container">
-                                    <img src="{% static 'core/images/staff.jpg' %}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
-                                </div>
-                                <div class="userData ml-3">
-                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{user.username}}</h2>
-                                    <h6 class="d-block">{{user.email}}</h6>
-                                    <h6 class="text-muted">حساب خاص</h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">مواعيد اليوم</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab" aria-controls="connectedServices" aria-selected="false">رزنامة الاسبوع</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content ml-1" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                                        <table class="table table-hover" style="text-align: right;">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">اسم المريض</th>
-                                                    <th scope="col">التوقيت</th>
-                                                    <th scope="col">الخدمة</th>
-                                                    <th scope="col">الحالة</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for appointment in appointments%}
-                                                <tr>
-                                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
-                                                    <td>({{appointment.time}})</td>
-                                                    <td>{{ appointment.service }}</td>
-                                                    <td>{% if appointment.status == False %}محتجزة
-                                                    {% else %}مكتملة 
-                                                    {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        <div style="text-align: left;">
-                                                            <a href="{% url 'check_appointment' appointment.id %}" class="btn btn-outline-success " role="button"
-                                                                aria-pressed="true">فحص</a>
-                                                            <div>
-                                                    </td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                        <hr />
-
-                                    </div>
-                                    <div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">
-                                        <table class="table" style="font-size:small; font-weight: 700;" dir="ltr">
-                                            <thead>
-                                                <tr>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">{{day1}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp1%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                        
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day2}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp2%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day3}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp3%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day4}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp4%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day5}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp5%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day6}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp6%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{{day7}}</th>
-                                                    {% for time in timelist%}
-                                                        <td
-                                                        {%for opp in opp7%}
-                                                        {%if opp.time == time %}
-                                                        style="color: red;"
-                                                        {% endif %}
-                                                        {% endfor%}
-                        
-                                                        >{{time}}</td>
-                                                    {% endfor %}
-                                                </tr>
-                        
-                        
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="card">
 
 
-                    </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap" dir="ltr">
 
+                <div class="image-container">
+                    <img src="{% static 'core/images/staff.jpg' %}" id="imgProfile" style="max-width:10rem;"
+                        class="img-thumbnail" />
                 </div>
+
+                <div style="margin: 5px;">
+                    <h2 style="font-size: 1.5rem; font-weight: bold">{{user.username}}</h2>
+                    <p>{{user.email}}</p>
+                    <h6 class="text-muted">حساب خاص</p>
+                    </h6>
+                </div>
+
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-12">
+
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
+                            aria-controls="basicInfo" aria-selected="true">مواعيد اليوم</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices"
+                            role="tab" aria-controls="connectedServices" aria-selected="false">رزنامة الاسبوع</a>
+                    </li>
+                </ul>
+
+
+                <div class="tab-content m-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                        aria-labelledby="basicInfo-tab">
+                        <table class="table table-bordered"
+                            style="font-size:small; font-weight: 700;text-align: right;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">اسم المريض</th>
+                                    <th scope="col">التوقيت</th>
+                                    <th scope="col">الخدمة</th>
+                                    <th scope="col">الحالة</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for appointment in appointments%}
+                                <tr>
+                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
+                                    <td>({{appointment.time}})</td>
+                                    <td>{{ appointment.service }}</td>
+                                    <td>{% if appointment.status == False %}محتجزة
+                                        {% else %}مكتملة
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div style="text-align: center;">
+                                            <a href="{% url 'check_appointment' appointment.id %}"
+                                                class="btn btn-outline-success " role="button"
+                                                aria-pressed="true"><img src="{% static 'core/images/view.png' %}" width="24rem" ></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="connectedServices" role="tabpanel"
+                        aria-labelledby="ConnectedServices-tab" style="text-align: right;">
+                        <table class="table" style="font-size:small; font-weight: 700;" dir="ltr">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{day1}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp1%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day2}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp2%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day3}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp3%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day4}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp4%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day5}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp5%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day6}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp6%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{day7}}</th>
+                                    {% for time in timelist%}
+                                    <td {%for opp in opp7%} {%if opp.time == time %} style="color: red;" {% endif %}
+                                        {% endfor%}>{{time}}</td>
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
     </div>
-
-
-{% endblock content%}
+</div>
+{% endblock content %}

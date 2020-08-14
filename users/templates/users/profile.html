@@ -1,146 +1,155 @@
 {% extends 'core/base.html'%}
 {% load static %}
 {% block content %}
+
 <div class="border_top pt-3" style="padding: 20px;text-align: right;">
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {{ message}}
-    </div>
-    {% endfor %}
-    {% endif %}
-
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message}}</div>
+    {% endfor %} {% endif %}
 </div>
+
+
 <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
+    <div class="card">
 
-                    <div class="card-body">
-                        <div class="card-title mb-0" dir="ltr">
-                            <div class="d-flex justify-content-start">
-                                <div class="image-container">
-                                    <img src="{% static 'core/images/profile.png' %}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
-                                </div>
-                                <div class="userData ml-3">
-                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{user.username}}</h2>
-                                    <h6 class="d-block">{{user.email}}</h6>
-                                    <h6 class="text-muted">RANKINGS : <span>10/10</span></p></h6>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">مواعيدي</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab" aria-controls="connectedServices" aria-selected="false">معلوماتي</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content ml-1" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                                        <table class="table table-hover" style="text-align: right;">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">اسم المريض</th>
-                                                    <th scope="col">تاريخ الموعد</th>
-                                                    <th scope="col">الخدمة</th>
-                                                    <th scope="col">الحالة</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for appointment in appointments%}
-                                                <tr>
-                                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
-                                                    <td>{{ appointment.date }} ({{appointment.time}})</td>
-                                                    <td>{{ appointment.service }}</td>
-                                                    <td>{% if appointment.status == False %}محتجزة
-                                                        {% else %}مكتملة 
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        <div style="text-align: left;">
-                                                        <a href="{% url 'view_appointment' appointment.id %}" class="btn btn-outline-success " role="button"
-                                                            aria-pressed="true">استخراج</a>
-                                                        <a href="{% url 'delete_appointment' appointment.id %}" class="btn btn-outline-danger " role="button"
-                                                            aria-pressed="true">حذف</a>
-                                                        <div>
-                                                    </td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                        <hr />
+        <div class="card-body">
+            <div class="d-flex flex-wrap" dir="ltr">
 
-                                    </div>
-                                    <div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab" style="text-align: right;">
-                                        {% if user.profile %}
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>اسم المستخدم</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{{user.username}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>الاسم الكامل</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{{user.profile.first_name}} {{user.profile.last_name}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>الهاتف</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>0{{user.profile.phone}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>العنوان</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{{user.profile.address}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>الجنس</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{{user.profile.sex}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>تاريخ الميلاد</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{{user.profile.date_of_birth}}</p>
-                                            </div>
-                                        </div>
-                                        {% else %}
-                                        <h3>لم تقم بتحديث معلوماتك بعد!</h3>
-                                        <h4>اضف معلوماتك <a style="color: limegreen;" href="{% url 'add_info' %}"><img src="{% static 'core/images/plus.png' %}" alt="" width="50rem"></a> </h4>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="image-container">
+                    <img src="{% static 'core/images/profile.png' %}" id="imgProfile" style="max-width:10rem;"
+                        class="img-thumbnail" />
                 </div>
+
+                <div style="margin: 5px;">
+                    <h2 style="font-size: 1.5rem; font-weight: bold">{{user.username}}</h2>
+                    <p>{{user.email}}</p>
+                    <h6 class="text-muted">RANKINGS : <span>10/10</span></p>
+                    </h6>
+                </div>
+
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-12">
+
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
+                            aria-controls="basicInfo" aria-selected="true">مواعيدي</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices"
+                            role="tab" aria-controls="connectedServices" aria-selected="false">معلوماتي</a>
+                    </li>
+                </ul>
+
+
+                <div class="tab-content m-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                        aria-labelledby="basicInfo-tab">
+                        <table class="table table-bordered" style="font-size:small; font-weight: 700;text-align: right;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">اسم المريض</th>
+                                    <th scope="col">تاريخ الموعد</th>
+                                    <th scope="col">الخدمة</th>
+                                    <th scope="col">الحالة</th>
+                                    <th scope="col">استخراج/حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for appointment in appointments%}
+                                <tr>
+                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
+                                    <td>{{ appointment.date }} ({{appointment.time}})</td>
+                                    <td>{{ appointment.service }}</td>
+                                    <td>{% if appointment.status == False %}محتجزة
+                                        {% else %}مكتملة
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div style="text-align: center;">
+                                            <a style="margin:2px;" href="{% url 'view_appointment' appointment.id %}"
+                                                class="btn btn-outline-success " role="button"
+                                                aria-pressed="true"><img src="{% static 'core/images/download.png'%}" width="23rem"></a>
+                                            <a href="{% url 'delete_appointment' appointment.id %}"
+                                                class="btn btn-outline-danger " role="button"
+                                                aria-pressed="true"><img src="{% static 'core/images/delete.png'%}" width="24rem"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="connectedServices" role="tabpanel"
+                        aria-labelledby="ConnectedServices-tab" style="text-align: right;">
+                        {% if user.profile %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>اسم المستخدم</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.username}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>الاسم الكامل</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.profile.first_name}} {{user.profile.last_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>الهاتف</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>0{{user.profile.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>العنوان</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.profile.address}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>الجنس</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.profile.sex}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>تاريخ الميلاد</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.profile.date_of_birth}}</p>
+                            </div>
+                        </div>
+                        {% else %}
+                        <h3>لم تقم بتحديث معلوماتك بعد!</h3>
+                        <h4>اضف معلوماتك <a href="{% url 'add_info' %}"><img
+                                    src="{% static 'core/images/plus.png' %}" alt="" width="50rem"></a>
+                        </h4>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
     </div>
-
-
-{% endblock content%}
+</div>
+{% endblock content %}
