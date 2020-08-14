@@ -11,8 +11,6 @@
 
 <div class="container">
     <div class="card">
-
-
         <div class="card-body">
             <div class="d-flex flex-wrap" dir="ltr">
 
@@ -27,10 +25,8 @@
                     <h6 class="text-muted">حساب خاص</p>
                     </h6>
                 </div>
-
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-12">
@@ -50,104 +46,173 @@
                 <div class="tab-content m-3" id="myTabContent">
                     <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
                         aria-labelledby="basicInfo-tab">
-                        <table class="table table-bordered"
-                            style="font-size:small; font-weight: 700;text-align: right;">
-                            <thead>
-                                <tr>
-                                    <th scope="col">اسم المريض</th>
-                                    <th scope="col">التوقيت</th>
-                                    <th scope="col">الخدمة</th>
-                                    <th scope="col">الحالة</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for appointment in appointments%}
-                                <tr>
-                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
-                                    <td>({{appointment.time}})</td>
-                                    <td>{{ appointment.service }}</td>
-                                    <td>{% if appointment.status == False %}محتجزة
-                                        {% else %}مكتملة
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <div style="text-align: center;">
-                                            <a href="{% url 'check_appointment' appointment.id %}"
-                                                class="btn btn-outline-success " role="button"
-                                                aria-pressed="true"><img src="{% static 'core/images/view.png' %}" width="24rem" ></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% for appointment in appointments%}
+
+                        <div {% if appointment.status == False %} class="card border-primary mb-3" {% else %}
+                            class="card border-danger mb-3" {% endif %} style="max-width: 99%;text-align: right;">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    {{appointment.first_name}} {{appointment.last_name}}
+                                    <a href="{% url 'check_appointment' appointment.id %}"
+                                        class="btn btn-outline-success " role="button" aria-pressed="true"><img
+                                            src="{% static 'core/images/view.png' %}" width="24rem"></a>
+                                </div>
+
+                            </div>
+                            <div class="card-body text-primary">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title">({{appointment.time}})</h5>
+                                    <h class="card-text">{{ appointment.service }}</4>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
 
                     <div class="tab-pane fade" id="connectedServices" role="tabpanel"
                         aria-labelledby="ConnectedServices-tab" style="text-align: right;">
-                        <table class="table" style="font-size:small; font-weight: 700;" dir="ltr">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{day1}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp1%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day2}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp2%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day3}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp3%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day4}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp4%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day5}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp5%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day6}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp6%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <th scope="row">{{day7}}</th>
-                                    {% for time in timelist%}
-                                    <td {%for opp in opp7%} {%if opp.time == time %} style="color: red;" {% endif %}
-                                        {% endfor%}>{{time}}</td>
-                                    {% endfor %}
-                                </tr>
-                            </tbody>
-                        </table>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                    aria-controls="home" aria-selected="true">{{day1}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                    aria-controls="profile" aria-selected="false">{{day2}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab1" data-toggle="tab" href="#contact1" role="tab"
+                                    aria-controls="contact1" aria-selected="false">{{day3}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab"
+                                    aria-controls="contact2" aria-selected="false">{{day4}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab"
+                                    aria-controls="contact3" aria-selected="false">{{day5}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab"
+                                    aria-controls="contact4" aria-selected="false">{{day6}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab5" data-toggle="tab" href="#contact5" role="tab"
+                                    aria-controls="contact5" aria-selected="false">{{day7}}</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp1%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp2%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact-tab1">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp3%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp4%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp5%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp6%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab5">
+                                <div class="shadow p-3 mb-5 bg-white rounded">
+                                    <div class="d-flex justify-content-between" style="max-width: 85%;">
+
+                                        {% for time in timelist%}
+                                        <div {%for opp in opp7%} {%if opp.time == time %} style="color: red;"
+                                            {% endif %} {% endfor%}>
+                                            <div style="max-width: 70%;">{{time}}</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
 
     </div>
 </div>
+
+
 {% endblock content %}

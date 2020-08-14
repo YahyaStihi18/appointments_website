@@ -50,40 +50,32 @@
                 <div class="tab-content m-3" id="myTabContent">
                     <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
                         aria-labelledby="basicInfo-tab">
-                        <table class="table table-bordered" style="font-size:small; font-weight: 700;text-align: right;">
-                            <thead>
-                                <tr>
-                                    <th scope="col">اسم المريض</th>
-                                    <th scope="col">تاريخ الموعد</th>
-                                    <th scope="col">الخدمة</th>
-                                    <th scope="col">الحالة</th>
-                                    <th scope="col">استخراج/حذف</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for appointment in appointments%}
-                                <tr>
-                                    <td>{{appointment.first_name}} {{appointment.last_name}}</td>
-                                    <td>{{ appointment.date }} ({{appointment.time}})</td>
-                                    <td>{{ appointment.service }}</td>
-                                    <td>{% if appointment.status == False %}محتجزة
-                                        {% else %}مكتملة
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <div style="text-align: center;">
-                                            <a style="margin:2px;" href="{% url 'view_appointment' appointment.id %}"
-                                                class="btn btn-outline-success " role="button"
-                                                aria-pressed="true"><img src="{% static 'core/images/download.png'%}" width="23rem"></a>
-                                            <a href="{% url 'delete_appointment' appointment.id %}"
-                                                class="btn btn-outline-danger " role="button"
-                                                aria-pressed="true"><img src="{% static 'core/images/delete.png'%}" width="24rem"></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% for appointment in appointments%}
+                        <div {% if appointment.status == False %} class="card border-primary mb-3" 
+                             {% else %} class="card border-danger mb-3"{% endif %}
+                        
+                        style="max-width: 99%;text-align: right;">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                <h5>{{appointment.first_name}} {{appointment.last_name}}</h5>
+                                <div style="text-align: center;">
+                                    <a style="margin:2px;" href="{% url 'view_appointment' appointment.id %}"
+                                        class="btn btn-outline-success " role="button"
+                                        aria-pressed="true"><img src="{% static 'core/images/download.png'%}" width="23rem"></a>
+                                    <a href="{% url 'delete_appointment' appointment.id %}"
+                                        class="btn btn-outline-danger " role="button"
+                                        aria-pressed="true"><img src="{% static 'core/images/delete.png'%}" width="24rem"></a>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card-body text-primary">
+                            <div class="d-flex justify-content-between">
+                              <h6>{{ appointment.date }} ({{appointment.time}})</h6>
+                              <h6>{{ appointment.service }}</6>
+                            </div>
+                            </div>
+                          </div>
+                          {% endfor %}
                     </div>
                     <div class="tab-pane fade" id="connectedServices" role="tabpanel"
                         aria-labelledby="ConnectedServices-tab" style="text-align: right;">
